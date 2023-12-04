@@ -63,6 +63,9 @@ if ($result->num_rows > 0) {
     </div>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search...">
+        <div id="noResultsMessage" style="display: none; text-align: center; padding: 10px;">
+    No matching notes found.
+</div>
     </div>
     <div>
         <!-- <a href="#notifications"></i> Notifications</a> -->
@@ -70,3 +73,4 @@ if ($result->num_rows > 0) {
         <a href="logout.php">Logout</a>
     </div>
 </div>
+

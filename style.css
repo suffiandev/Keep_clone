@@ -184,7 +184,7 @@ input[type="submit"]:hover {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 100px;
+    margin-top: 120px;
     width: 50%;
     z-index: 1;
 }
@@ -513,4 +513,13 @@ svg {
     width: 77%;
     padding: 5px 10px;
     text-align: center;
+}
+
+#noResultsMessage {
+    color: #000;
+    /* You can adjust the color as needed */
+    /* font-weight: bold; */
+    font-size: 16px;
+    margin-top: 0px;
+    /* Adjust the margin as needed */
 }

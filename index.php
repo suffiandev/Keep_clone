@@ -14,9 +14,9 @@ include('db.php')
         <form class='register-form-inner' action="index.php" method="post">
             <h1 class="login-title">Registration</h1>
             <label for="username">Username:</label>
-            <input type="text" name="username" required>
+            <input type="text" name="username" placeholder="Username" required>
             <label for="password">Password:</label>
-            <input type="password" name="password" required>
+            <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Register">
             <p class="link">Already have an account? <a href="login.php">Login here</a></p>
         </form>

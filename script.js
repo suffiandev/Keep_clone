@@ -1,6 +1,3 @@
-// var openReminderPicker = null;
-// var currentNoteId = null;
-
 function requestNotificationPermission() {
     Notification.requestPermission().then(function (permission) {
         if (permission === 'granted') {
@@ -10,7 +7,6 @@ function requestNotificationPermission() {
         }
     });
 }
-
 function showNotification(title, body) {
     if (Notification.permission === 'granted') {
         // Notification permission is already granted
@@ -45,8 +41,6 @@ function showNotification(title, body) {
         });
     }
 }
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.querySelector('.menu-btn');
     const menu = document.querySelector('.menu');
@@ -59,8 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-
 function expandNote() {
     var noteTitle = document.getElementById("noteTitle");
     var noteContent = document.getElementById("noteContent");
@@ -78,9 +70,6 @@ function expandNote() {
     // Focus on the content input
     noteContent.focus();
 }
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     var note = document.getElementById("myForm");
 
@@ -94,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Check if the click occurred outside the note container
             var isOutsideNoteContainer = !event.target.closest("#myForm");
-
             if (isOutsideNoteContainer) {
                 // Clicked outside the note container, hide the expanded view
                 noteTitle.style.display = "none";
@@ -164,13 +152,11 @@ function expandShowNote(noteElement) {
     expandedNote.style.display = 'block';
 }
 
-
 function saveEdit(noteId) {
     // console.log('Note ID:', noteId);
     const expandedNote = document.querySelector('.expanded-note');
     const expandedTitle = document.getElementById('expandedTitle');
     const expandedContent = document.getElementById('expandedContent');
-
     // Get the edited content
     const editTitle = document.getElementById('editTitle').value;
     const editContent = document.getElementById('editContent').value;
@@ -205,18 +191,40 @@ function saveEdit(noteId) {
     document.querySelector('.expanded-note').style.display = 'block';
 }
 
-
 // JavaScript for dynamic search
+// document.getElementById('searchInput').addEventListener('input', function () {
+//     var searchQuery = this.value.toLowerCase();
+//     var notes = document.querySelectorAll('.note');
+
+//     notes.forEach(function (note) {
+//         var title = note.querySelector('h2').innerText.toLowerCase();
+//         var content = note.querySelector('.note-content').innerText.toLowerCase();
+//         var shouldShow = title.includes(searchQuery) || content.includes(searchQuery);
+//         note.style.display = shouldShow ? 'flex' : 'none';
+//     });
+// });
+
 document.getElementById('searchInput').addEventListener('input', function () {
     var searchQuery = this.value.toLowerCase();
     var notes = document.querySelectorAll('.note');
+    var noResultsMessage = document.getElementById('noResultsMessage');
+
+    var hasResults = false;
 
     notes.forEach(function (note) {
         var title = note.querySelector('h2').innerText.toLowerCase();
         var content = note.querySelector('.note-content').innerText.toLowerCase();
         var shouldShow = title.includes(searchQuery) || content.includes(searchQuery);
+
+        if (shouldShow) {
+            hasResults = true;
+        }
+
         note.style.display = shouldShow ? 'flex' : 'none';
     });
+
+    // Toggle the visibility of the "No results" message based on search results
+    noResultsMessage.style.display = hasResults ? 'none' : 'block';
 });
 
 function showMessage(messageId) {
@@ -349,27 +357,6 @@ function saveReminder(noteId) {
 }
 
 // Function to fetch and display reminders
-function showReminders(noteId) {
-    // AJAX request to fetch reminders
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'get_reminders.php?noteId=' + encodeURIComponent(noteId), true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            var reminders = JSON.parse(xhr.responseText);
-
-            // Display reminders in your UI (you need to implement this part)
-            console.log('Reminders for note ' + noteId + ':', reminders);
-        } else {
-            console.error('Error fetching reminders. Server returned status:', xhr.status);
-        }
-    };
-
-    xhr.send();
-}
-
-// Example usage: call showReminders when you want to display reminders for a specific note
-showReminders(YourNoteIdHere);
 
 
