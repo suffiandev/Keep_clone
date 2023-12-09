@@ -1,46 +1,3 @@
-function requestNotificationPermission() {
-    Notification.requestPermission().then(function (permission) {
-        if (permission === 'granted') {
-            console.log('Notification permission granted');
-        } else {
-            console.warn('Notification permission denied');
-        }
-    });
-}
-function showNotification(title, body) {
-    if (Notification.permission === 'granted') {
-        // Notification permission is already granted
-        var notification = new Notification(title, {
-            body: body,
-            icon: 'path/to/your/icon.png'
-        });
-
-        notification.onclick = function () {
-            // Handle notification click if needed
-            console.log('Notification clicked');
-        };
-    } else if (Notification.permission === 'denied') {
-        console.warn('Notification permission denied');
-    } else {
-        // Request notification permission
-        Notification.requestPermission().then(function (permission) {
-            if (permission === 'granted') {
-                // Permission granted, show the notification
-                var notification = new Notification(title, {
-                    body: body,
-                    icon: 'path/to/your/icon.png'
-                });
-
-                notification.onclick = function () {
-                    // Handle notification click if needed
-                    console.log('Notification clicked');
-                };
-            } else {
-                console.warn('Notification permission denied');
-            }
-        });
-    }
-}
 document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.querySelector('.menu-btn');
     const menu = document.querySelector('.menu');
@@ -57,17 +14,14 @@ function expandNote() {
     var noteTitle = document.getElementById("noteTitle");
     var noteContent = document.getElementById("noteContent");
     var saveButton = document.getElementsByName("save_note")[0];
-
     // Hide the original "Take a note..." field
     var originalNote = document.getElementById("noteContent");
     originalNote.style.display = "none";
-
     // Show the title input, content input, and button
     noteTitle.style.display = "block";
     noteContent.style.display = "block";
     saveButton.style.display = "block";
 
-    // Focus on the content input
     noteContent.focus();
 }
 document.addEventListener("DOMContentLoaded", function () {
@@ -79,8 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
             var noteContent = document.getElementById("noteContent");
             var saveButton = document.getElementsByName("save_note")[0];
             var originalNote = document.getElementById("noteContent");
-
-
             // Check if the click occurred outside the note container
             var isOutsideNoteContainer = !event.target.closest("#myForm");
             if (isOutsideNoteContainer) {
@@ -111,24 +63,21 @@ function expandShowNote(noteElement) {
     const expandedTitle = document.getElementById('expandedTitle');
     const expandedContent = document.getElementById('expandedContent');
     const noteId = noteElement.getAttribute('data-note-id');
-
     // Set the content and title of the expanded note
     expandedTitle.textContent = noteElement.querySelector('h2').textContent;
     expandedContent.textContent = noteElement.querySelector('.note-content').textContent.trim();
-
     // Check if the note is in edit mode
     const isEditing = noteElement.classList.contains('editing');
 
     if (!isEditing) {
         // Enter edit mode
         noteElement.classList.add('editing');
-
         // Create input fields for editing
         expandedTitle.innerHTML = '<input type="text" id="editTitle" value="' + expandedTitle.textContent + '">';
         expandedContent.innerHTML = '<textarea id="editContent">' + expandedContent.textContent + '</textarea>';
 
         if (!expandedNote.querySelector('button')) {
-            expandedNote.innerHTML += '<button onclick="saveEdit(' + noteId + ')">Save</button>';
+            expandedNote.innerHTML += '<button onclick="saveEdit(' + noteId + ')">Edit</button>';
         }
     } else {
         // Exit edit mode
@@ -161,7 +110,7 @@ function saveEdit(noteId) {
     const editTitle = document.getElementById('editTitle').value;
     const editContent = document.getElementById('editContent').value;
 
-    // Create a FormData object to send data via AJAX
+    // FormData object to send data via AJAX
     const formData = new FormData();
     formData.append('note_id', noteId);
     formData.append('new_title', editTitle);
@@ -182,28 +131,14 @@ function saveEdit(noteId) {
     xhr.send(formData);
 
     // Exit edit mode
-    document.querySelector('.note.editing').classList.remove('editing');
+    // document.querySelector('.note.editing').classList.remove('editing');
 
     // Remove the "Save" button
-    document.querySelector('.expanded-note button').remove();
+    // document.querySelector('.expanded-note button').remove();
 
     // Show the expanded note
-    document.querySelector('.expanded-note').style.display = 'block';
+    // document.querySelector('.expanded-note').style.display = 'block';
 }
-
-// JavaScript for dynamic search
-// document.getElementById('searchInput').addEventListener('input', function () {
-//     var searchQuery = this.value.toLowerCase();
-//     var notes = document.querySelectorAll('.note');
-
-//     notes.forEach(function (note) {
-//         var title = note.querySelector('h2').innerText.toLowerCase();
-//         var content = note.querySelector('.note-content').innerText.toLowerCase();
-//         var shouldShow = title.includes(searchQuery) || content.includes(searchQuery);
-//         note.style.display = shouldShow ? 'flex' : 'none';
-//     });
-// });
-
 document.getElementById('searchInput').addEventListener('input', function () {
     var searchQuery = this.value.toLowerCase();
     var notes = document.querySelectorAll('.note');
@@ -222,8 +157,6 @@ document.getElementById('searchInput').addEventListener('input', function () {
 
         note.style.display = shouldShow ? 'flex' : 'none';
     });
-
-    // Toggle the visibility of the "No results" message based on search results
     noResultsMessage.style.display = hasResults ? 'none' : 'block';
 });
 
@@ -269,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// Your existing function for toggling the reminder picker
 function toggleReminderPicker(noteId) {
     // Iterate through all notes and hide their reminder pickers except the current one
     var allNotes = document.querySelectorAll('.note');
@@ -356,7 +288,49 @@ function saveReminder(noteId) {
     }
 }
 
-// Function to fetch and display reminders
+function requestNotificationPermission() {
+    Notification.requestPermission().then(function (permission) {
+        if (permission === 'granted') {
+            console.log('Notification permission granted');
+        } else {
+            console.warn('Notification permission denied');
+        }
+    });
+}
+function showNotification(title, body) {
+    if (Notification.permission === 'granted') {
+        // Notification permission is already granted
+        var notification = new Notification(title, {
+            body: body,
+            icon: 'path/to/your/icon.png'
+        });
+
+        notification.onclick = function () {
+            // Handle notification click if needed
+            console.log('Notification clicked');
+        };
+    } else if (Notification.permission === 'denied') {
+        console.warn('Notification permission denied');
+    } else {
+        // Request notification permission
+        Notification.requestPermission().then(function (permission) {
+            if (permission === 'granted') {
+                // Permission granted, show the notification
+                var notification = new Notification(title, {
+                    body: body,
+                    icon: 'path/to/your/icon.png'
+                });
+
+                notification.onclick = function () {
+                    // Handle notification click if needed
+                    console.log('Notification clicked');
+                };
+            } else {
+                console.warn('Notification permission denied');
+            }
+        });
+    }
+}
 
 
 

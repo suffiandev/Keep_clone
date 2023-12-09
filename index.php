@@ -11,7 +11,7 @@ include('db.php')
 </head>
 <body>
     <div class='register-form'>
-        <form class='register-form-inner' action="index.php" method="post">
+        <form class='register-form-inner' action="" method="post">
             <h1 class="login-title">Registration</h1>
             <label for="username">Username:</label>
             <input type="text" name="username" placeholder="Username" required>

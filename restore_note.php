@@ -7,11 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['restore_note'])) {
         // Update the note to be not trashed
         $sql = "UPDATE notes SET is_trashed = false WHERE id = $note_id";
         if ($conn->query($sql)) {
-            // Restoration successful
             header("Location: trash_note.php"); // Refresh the page to reflect changes
             exit();
         } else {
-            // Error handling if restoration fails
             echo "Error restoring note: " . $conn->error;
         }
     } else {

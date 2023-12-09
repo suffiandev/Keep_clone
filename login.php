@@ -1,7 +1,7 @@
 <?php
 include('db.php')
 ?>
- <?php
+<?php
 session_start();
 $showForm = true; // Variable to control form visibility
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

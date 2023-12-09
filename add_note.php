@@ -10,14 +10,14 @@ include('header.php')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Your Google Keep Project</title>
+    <title></title>
 </head>
 <body>
 
 <main>
     <div id="noteContainer" class='add-form'>
         <form id="myForm" class="note-container" method="post" action="add_note.php">
-            <input required type="text" name="note_title" id="noteTitle" placeholder="Title" style="display: none;">
+            <input autocomplete="off" required type="text" name="note_title" id="noteTitle" placeholder="Title" style="display: none;">
             <textarea required name="note_content" id="noteContent" placeholder="Take a note..." onclick="expandNote()"></textarea>
             <button class="btn" type="submit" name="save_note" style="display: none;">Save</button>
         </form>
